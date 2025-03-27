@@ -9,6 +9,14 @@ class StringCalculator
       delimiter = Regexp.escape(delimiter[2..])
     end
 
-    numbers.split(/#{delimiter}/).map(&:to_i).sum
+    num_list = numbers.split(/#{delimiter}/).map(&:to_i)
+
+    negatives = num_list.select { |num| num < 0 }
+
+    unless negatives.empty?
+      raise "Negative numbers not allowed: #{negatives.join(', ')}"
+    end
+
+    num_list.sum
   end
 end
